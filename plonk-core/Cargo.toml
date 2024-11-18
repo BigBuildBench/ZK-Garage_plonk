@@ -1,0 +1,62 @@
+[package]
+name = "plonk-core"
+version = "0.1.0"
+authors = ["ZK-GARAGE Authors"]
+readme = "README.md"
+repository = "https://github.com/zk-garage/plonk"
+keywords = ["cryptography", "plonk", "zk-snarks", "zero-knowledge", "crypto"]
+categories = ["algorithms", "cryptography", "science"]
+description = "A pure-Rust implementation of the PLONK ZK-Proof algorithm."
+license = "MIT OR Apache-2.0"
+edition = "2021"
+
+[package.metadata.docs.rs]
+# To build locally:
+# RUSTDOCFLAGS="--cfg doc_cfg" cargo +nightly doc --all-features --open
+all-features = true
+rustdoc-args = ["--cfg", "doc_cfg"]
+
+[features]
+# Default Features
+default = [
+    # "trace-print",
+    "trace",
+    "asm",
+    "itertools/default",
+    "parallel",
+]
+
+# Raw Assembly
+asm = ["ark-ff/asm"]
+
+# Parallelism Features
+parallel = [
+    "ark-ec/parallel",
+    "ark-ff/parallel",
+    "ark-poly-commit/parallel",
+    "ark-poly/parallel",
+]
+
+# Enable Standard Library
+std = [
+    "ark-ec/std",
+    "ark-ff/std",
+]
+
+# Minimal Tracing Features
+trace = []
+
+# Tracing Printing Features
+trace-print = ["trace", "std"]
+
+[dependencies]
+
+[dev-dependencies]
+ark-bls12-377 = "0.3"
+ark-bls12-381 = "0.3"
+ark-ed-on-bls12-377 = "0.3"
+ark-ed-on-bls12-381 = "0.3"
+criterion = "0.3"
+paste = "1.0.6"
+tempdir = "0.3"
+cfg-if = "0.1"
